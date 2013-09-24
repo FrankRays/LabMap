@@ -36,6 +36,17 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Application Specific Constants
+|--------------------------------------------------------------------------
+|
+| These constants are used by the application.
+*/
 
+define('APPLICATION_NAME','EventRegistration');
+define('UTYPE_SU_ADMIN',1);
+define('UTYPE_ADMIN',2);
+define('UTYPE_HELPER',3);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

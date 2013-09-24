@@ -1,0 +1,45 @@
+/* 
+    Document   : style
+    Created on : Sep 16, 2013, 4:09:26 PM
+    Author     : sjonnala
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+html{
+	padding:0;
+	margin:0;
+}
+body{
+	margin:0 auto;
+	padding:0;
+	padding-top:51px;
+	padding-bottom:30px;
+}
+
+.footer{
+	height:60px;
+	border-top:1px solid #EEEEEE;
+	padding:10px;
+}
+.centerWithMargin{
+	margin:0 auto;
+}
+.form-signin {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.text-color-green{
+	color:#468847 !important;
+}
+.text-color-red{
+	color:#b94a48 !important;
+}
+.border-bottom{
+	border-bottom:1px solid;
+	border-bottom-color: inherit;
+}
