@@ -44,9 +44,11 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | These constants are used by the application.
 */
 
-define('APPLICATION_NAME','EventRegistration');
-define('UTYPE_SU_ADMIN',1);
-define('UTYPE_ADMIN',2);
-define('UTYPE_HELPER',3);
+define('APPLICATION_NAME','Labmap');
+define('UTYPE_ADMIN',1);
+define('UTYPE_TA',2);
+
+define('LTYPE_AD',1);
+define('LTYPE_LOCAL',2);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

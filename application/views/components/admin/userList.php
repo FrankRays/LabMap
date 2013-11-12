@@ -1,12 +1,12 @@
 <?php
-$utypes_text = array("SUadmin", "admin", "helper");
-if (!isset($mode) || !in_array($mode, array(UTYPE_SU_ADMIN, UTYPE_ADMIN, UTYPE_HELPER))) {
-	$mode = UTYPE_HELPER;
+$utypes_text = array("Admin", "TA");
+if (!isset($mode) || !in_array($mode, array(UTYPE_ADMIN, UTYPE_TA))) {
+	$mode = UTYPE_TA;
 }
 
 $edit_available = true;
 
-if ($mode == UTYPE_HELPER) {
+if ($mode == UTYPE_TA) {
 	$edit_available = false;
 }
 ?>
@@ -51,25 +51,36 @@ if ($mode == UTYPE_HELPER) {
 							<label class="col-lg-4 col-md-4 col-sm-4 control-label" for="utype">User Type</label>
 							<div class="col-lg-8 col-md-8 col-sm-8">
 								<select tabindex="2" name="utype" id="utype" class="form-control" placeholder="Username">
-									<option selected="selected" value="<?php echo UTYPE_HELPER; ?>"><?php echo $utypes_text[UTYPE_HELPER - 1]; ?></option>
+									<option selected="selected" value="<?php echo UTYPE_TA; ?>"><?php echo $utypes_text[UTYPE_TA - 1]; ?></option>
 									<option value="<?php echo UTYPE_ADMIN; ?>"><?php echo $utypes_text[UTYPE_ADMIN - 1]; ?></option>
-									<?php if ($mode == UTYPE_SU_ADMIN) { ?>
-										<option value="<?php echo UTYPE_SU_ADMIN; ?>"><?php echo $utypes_text[UTYPE_SU_ADMIN - 1]; ?></option>
-										<?php }
-									?>
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-4 col-md-4 col-sm-4 control-label" for="ltype">Login Type</label>
+							<div class="col-lg-8 col-md-8 col-sm-8">
+								<select tabindex="3" name="ltype" id="ltype" class="form-control">
+									<option selected="selected" value="<?php echo LTYPE_AD; ?>"><?php echo "AD"; ?></option>
+									<option value="<?php echo LTYPE_LOCAL; ?>"><?php echo "Local"; ?></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-4 col-md-4 col-sm-4 control-label" for="passwd">Password</label>
+							<div class="col-lg-8 col-md-8 col-sm-8">
+								<input tabindex="4" type="text" name="passwd" id="passwd" class="form-control" placeholder="Password (Used if Login Type = Local)" required/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-lg-4 col-md-4 col-sm-4 control-label" for="active">Active?</label>
 							<div class="col-lg-2 col-md-2 col-sm-2">
-								<input tabindex="3" type="checkbox" checked="true" name="active" id="active" />
+								<input tabindex="5" type="checkbox" checked="true" name="active" id="active" />
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-lg-4 col-md-4 col-sm-4"></div>
 							<div class="col-lg-2 col-md-2 col-sm-2">
-								<input type="submit" id="saveNewUser" class="btn btn-primary" value="Save">
+								<input tabindex="6" type="submit" id="saveNewUser" class="btn btn-primary" value="Save">
 							</div>
 						</div>
 					</form>

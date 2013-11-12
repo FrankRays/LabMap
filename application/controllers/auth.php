@@ -35,7 +35,7 @@ class Auth extends CI_Controller
 		
 		// this loads the Auth_AD library. You can also choose to autoload it (see config/autoload.php)
 		$this->load->library('Auth_AD');
-		
+		$this->load->model('user_model','user');
 	}
 	
 	public function login()
@@ -56,28 +56,45 @@ class Auth extends CI_Controller
 		if(count($row)==0 || $row->active==false){
 			redirect('/login/loginFail');
 		}
-		
-		// try to login
-		if($this->auth_ad->login($username, $password))
-		{
-			// the login was succesful, do your thing here
-			// upon a succesful login the session will automagically contain some handy user data:
-			// $this->session->userdata('cn') contains the common name from the AD
-			// $this->session->userdata('username') contains the username as processed
-			// $this->session->userdata('dn') contains the distinguished name from the AD
-			// $this->session->userdata('logged_in') contains a boolean (true)
-			$this->session->set_userdata('user_id',$row->userId_pk);
-			$this->session->set_userdata('utype',$row->utype);
-			redirect('/home');
-		}
-		else
-		{
-			// user could not be authenticated, whoops.
-			if($this->session->userdata('logged_in'))
+		if($row->ltype == 1){
+			// try to login
+			if($this->auth_ad->login($username, $password))
 			{
-				$this->auth_ad->logout();
+				$this->session->set_userdata('user_id',$row->userId_pk);
+				$this->session->set_userdata('utype',$row->utype);
+				redirect('/home');
 			}
-			$this->session->sess_destroy();
+			else
+			{
+				// user could not be authenticated, whoops.
+				if($this->session->userdata('logged_in'))
+				{
+					$this->auth_ad->logout();
+				}
+				$this->session->sess_destroy();
+				redirect('/login/loginFail');
+			}
+		}
+		else if($row->ltype==2){
+			$enc_pass = $this->encrypt->sha1($password);
+			
+			if($row->passwd == $enc_pass){
+				$this->session->set_userdata('user_id',$row->userId_pk);
+				$this->session->set_userdata('utype',$row->utype);
+				$this->session->set_userdata('logged_in',TRUE);
+				$this->session->set_userdata('username',$row->uname);
+				redirect('/home');
+			}
+			else{
+				if($this->session->userdata('logged_in'))
+				{
+					$this->session->set_userdata('logged_in',FALSE);
+				}
+				$this->session->sess_destroy();
+				redirect('/login/loginFail');
+			}
+		}
+		else{
 			redirect('/login/loginFail');
 		}
 	}

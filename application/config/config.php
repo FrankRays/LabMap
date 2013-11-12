@@ -244,7 +244,7 @@ $config['encryption_key'] = 'fikyhd45nvgbjapq967rh';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'EventRegApp';
+$config['sess_cookie_name']		= 'labmapv2';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= TRUE;
@@ -294,8 +294,8 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_expire' = The number in seconds the token should expire.
 */
 $config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
+$config['csrf_token_name'] = 'labmap_token';
+$config['csrf_cookie_name'] = 'labmap_cookie';
 $config['csrf_expire'] = 7200;
 
 /*
