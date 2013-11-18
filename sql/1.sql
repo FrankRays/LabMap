@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2013 at 02:04 AM
+-- Generation Time: Nov 18, 2013 at 04:57 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -19,6 +19,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `labmapdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `building`
+--
+
+CREATE TABLE IF NOT EXISTS `building` (
+  `buildingId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `building` varchar(255) NOT NULL,
+  `x1` int(11) NOT NULL,
+  `y1` int(11) NOT NULL,
+  `x2` int(11) NOT NULL,
+  `y2` int(11) NOT NULL,
+  PRIMARY KEY (`buildingId`),
+  UNIQUE KEY `building` (`building`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -41,8 +58,72 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('225434a7b0bf50d251db6af3a709cadd', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1384221574, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"3";s:5:"utype";s:1:"1";s:9:"logged_in";b:1;s:8:"username";s:8:"sjonnala";}'),
-('cd65521001bb0927ef32aa37cf284d95', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1384212549, '');
+('3833641717c11f323ba876cd0ff46326', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', 1384740193, ''),
+('a617ec59127c98dc4f29a69fbe8d6af5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1384486496, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"9";s:5:"utype";s:1:"1";s:9:"logged_in";b:1;s:8:"username";s:5:"admin";}'),
+('c1efbf502f449ecf47a4c71bebd40267', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', 1384750040, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"3";s:5:"utype";s:1:"1";s:9:"logged_in";b:1;s:8:"username";s:8:"sjonnala";}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `devicecapability`
+--
+
+CREATE TABLE IF NOT EXISTS `devicecapability` (
+  `sysId_fk` int(10) unsigned NOT NULL,
+  `capability` varchar(255) NOT NULL,
+  KEY `sysId_fk` (`sysId_fk`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `labsinbuildings`
+--
+
+CREATE TABLE IF NOT EXISTS `labsinbuildings` (
+  `buildingId_fk` int(10) unsigned NOT NULL,
+  `lab_mapId_fk` int(10) unsigned NOT NULL COMMENT 'lab''s map',
+  UNIQUE KEY `lab_mapId_fk` (`lab_mapId_fk`),
+  KEY `buildingId_fk` (`buildingId_fk`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `map`
+--
+
+CREATE TABLE IF NOT EXISTS `map` (
+  `mapId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mName` varchar(255) NOT NULL,
+  `bgImage` varchar(255) NOT NULL,
+  `mWidth` int(10) unsigned NOT NULL,
+  `mHeight` int(10) unsigned NOT NULL,
+  `isLive` tinyint(1) NOT NULL,
+  `mType` tinyint(4) NOT NULL COMMENT 'campusmap / labmap',
+  PRIMARY KEY (`mapId`),
+  UNIQUE KEY `mName` (`mName`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='stores the data about both the campus map and labmap.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `system`
+--
+
+CREATE TABLE IF NOT EXISTS `system` (
+  `sysId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sysName` varchar(255) NOT NULL,
+  `lab_mapId_fk` int(10) unsigned DEFAULT NULL,
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL COMMENT '0,1,2,3 : free, used, error, maintenance',
+  `ninerNetUser` varchar(255) NOT NULL,
+  `deviceType` int(11) NOT NULL,
+  PRIMARY KEY (`sysId`),
+  KEY `lab_mapId_fk` (`lab_mapId_fk`),
+  KEY `lab_mapId_fk_2` (`lab_mapId_fk`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -68,6 +149,29 @@ INSERT INTO `user` (`userId_pk`, `uname`, `utype`, `ltype`, `active`, `passwd`) 
 (3, 'sjonnala', 1, 2, 1, 'e28ede6a389f162cf57a1985faa98364a89ab72b'),
 (8, 'tester', 2, 1, 1, '1b90063efe6da2c90bdda5e3e5652302c6b6e80d'),
 (9, 'admin', 1, 2, 1, 'f865b53623b121fd34ee5426c792e5c33af8c227');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `devicecapability`
+--
+ALTER TABLE `devicecapability`
+  ADD CONSTRAINT `devicecapability_ibfk_1` FOREIGN KEY (`sysId_fk`) REFERENCES `system` (`sysId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `labsinbuildings`
+--
+ALTER TABLE `labsinbuildings`
+  ADD CONSTRAINT `labsinbuildings_ibfk_2` FOREIGN KEY (`lab_mapId_fk`) REFERENCES `map` (`mapId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `labsinbuildings_ibfk_1` FOREIGN KEY (`buildingId_fk`) REFERENCES `building` (`buildingId`);
+
+--
+-- Constraints for table `system`
+--
+ALTER TABLE `system`
+  ADD CONSTRAINT `system_ibfk_3` FOREIGN KEY (`lab_mapId_fk`) REFERENCES `map` (`mapId`) ON DELETE SET NULL ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
