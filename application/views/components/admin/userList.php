@@ -143,4 +143,4 @@ if ($mode == UTYPE_TA) {
 </div>
 <?php
 /* End of file userList.php */
-/* Location:  */
+/* Location:  ./application/views/components/admin/userList.php*/

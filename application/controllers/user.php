@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class User extends MY_Controller {
 
@@ -153,4 +153,4 @@ class User extends MY_Controller {
 }
 
 /* End of file user.php */
-/* Location:  */
+/* Location:  ./application/controllers/user.php*/

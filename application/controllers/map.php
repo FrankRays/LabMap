@@ -12,4 +12,6 @@ class Map extends MY_Controller {
 	public function index(){}
 	
 }
-?>
+
+/* End of file map.php */
+/* Location:  ./application/controllers/map.php*/

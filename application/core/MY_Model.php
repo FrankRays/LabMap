@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * A base model with a series of CRUD functions (powered by CI's query builder),
  * validation-in-model support, event callbacks and more.
@@ -891,3 +891,6 @@ class MY_Model extends CI_Model
         return $this->_temporary_return_type == 'array' ? $method . '_array' : $method;
     }
 }
+
+/* End of file MY_Model.php */
+/* Location: /application/core/MY_Model.php */

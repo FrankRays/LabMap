@@ -2,4 +2,4 @@
 </html>
 <?php
 /* End of file footer.php */
-/* Location:  */
+/* Location:  ./application/views/components/footer.php*/

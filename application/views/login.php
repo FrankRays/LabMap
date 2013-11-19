@@ -87,4 +87,4 @@ $this->load->helper('form');
 </div>
 <?php
 /* End of file login.php */
-/* Location:  */
+/* Location:  ./application/views/login.php*/

@@ -1,4 +1,5 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 class Login extends CI_Controller{
 	public $data = array(
 		'login_title'=>APPLICATION_NAME,
@@ -29,4 +30,4 @@ class Login extends CI_Controller{
 	
 }
 /* End of file login.php */
-/* Location:  */
+/* Location:  ./application/controllers/login.php*/

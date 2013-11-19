@@ -43,4 +43,4 @@
 </div>
 <?php
 /* End of file navBar.php */
-/* Location:  */
+/* Location:  ./application/views/components/navBar.php*/

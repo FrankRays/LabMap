@@ -12,4 +12,4 @@
 	<body>
 <?php
 /* End of file header.php */
-/* Location:  */
+/* Location:  ./application/views/components/header.php*/

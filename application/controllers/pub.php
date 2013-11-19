@@ -12,4 +12,6 @@ class Pub extends CI_Controller {
 	public function index(){}
 	
 }
-?>
+
+/* End of file pub.php */
+/* Location:  ./application/controllers/pub.php*/

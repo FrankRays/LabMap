@@ -20,4 +20,5 @@ class Home extends CI_Controller {
 	public function computersInLab(){}
 	
 }
-?>
+/* End of file api.php */
+/* Location:  ./application/controllers/api.php*/
