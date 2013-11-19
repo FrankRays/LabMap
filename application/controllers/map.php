@@ -4,12 +4,17 @@ class Map extends MY_Controller {
 	
 	public function __construct(){
 		parent::__construct();
+		$this->load->model("map_model","map");
 	}
 	
 	/**
 	 * show the map list.
 	 */
-	public function index(){}
+	public function index(){
+		$this->load->view('components/header');
+		$this->load->view('components/navBar',  $this->data);
+		$this->load->view('components/footer');
+	}
 	
 }
 

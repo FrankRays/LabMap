@@ -1,8 +1,4 @@
-<?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Description of user_m
@@ -15,4 +11,5 @@ class User_model extends MY_Model{
 	
 }
 
-?>
+/* End of file user_model.php */
+/* Location:  ./application/models/user_model.php*/

@@ -20,6 +20,11 @@
 						<span class="glyphicon glyphicon-user"></span> Users
 					</a>
 				</li>
+				<li <?php if($this->uri->segment(1)=="map"){ echo "class='active'";} ?> >
+					<a href="<?php echo site_url('/map');?>">
+						<span class="glyphicon glyphicon-map-marker"></span> Map
+					</a>
+				</li>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-cog"></span>
