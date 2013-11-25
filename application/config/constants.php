@@ -50,5 +50,8 @@ define('UTYPE_TA',2);
 
 define('LTYPE_AD',1);
 define('LTYPE_LOCAL',2);
+
+define('MTYPE_CAMPUS',1);
+define('MTYPE_LAB',2);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
