@@ -1,79 +1,65 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 class Listener extends CI_Controller {
-	
-	public function __construct(){
+
+	public function __construct() {
 		parent::__construct();
+		$this->load->model('system_model','system');
 	}
-	
+
 	/**
 	 * takes the post data from the labMap-probe and stores it into the database.
 	 */
-	public function index(){
-            
-            //TODO : Encrytpted json object should be decoded
-           if(isset($_POST['data'])){
-            // Remove Padding
-            $pad = "L@bM4P_p@66";
-            $json = str_replace($pad, "", $_POST['data']);
-            //converting into key, value pairs
-            $json = str_replace(":", "=>", $json);
-            // Decode JSON objects to PHP objects
-            $djson = json_decode($json, true);
-            echo "$djson";
-            }
-                // Validation for fields
-                foreach($djson as $x=>$x_value){
-                    if(is_string($x_value)&&(strlen($x_value)<=30)){
-                        $username= mysql_real_escape_string( $x_value['username'] );
-                        $system= mysql_real_escape_string( $x_value['system'] );
-                        if(($x['function']=='login')&&($x['LoggedIn']=='true')){
-                            //Insert Query
-//                            $columns = implode(", ",array_keys($djson));
-//                            $escaped_values = array_map('mysql_real_escape_string', array_values($djson));
-//                            $values  = implode(", ", $escaped_values);
-//                            $sql = "INSERT INTO `system`($columns) VALUES ($values)";
-                            //{ “username”:”MyUname”, “system”:”MySysname”, “function”:”login/logout”, ”LoggedIn”:”true/false” }
-                            $valuesArr[] ="('$username','$system','ok')";
-                            $sql = "INSERT INTO 'system'(ninerNetUser, sysName, status) VALUES (implode(',', $valuesArr);)";
-                            mysql_query($sql);
-                            
-                        }elseif(($x['function']=='logout')&&($x['LoggedIn']=='false')){
-                            //Insert Query
-//                            $columns = implode(", ",array_keys($djson));
-//                            $escaped_values = array_map('mysql_real_escape_string', array_values($djson));
-//                            $values  = implode(", ", $escaped_values);
-//                            $sql = "INSERT INTO 'system'($columns) VALUES ($values)";
-                            $valuesArr[] ="('$username','$system','fail')";
-                            $sql = "INSERT INTO 'system'(ninerNetUser, sysName, status) VALUES (implode(',', $valuesArr);)";
-                            mysql_query($sql);
-                        }
+	public function index() {
+		
+		//TODO : Encrytpted json object should be decoded
+		if (isset($_POST['data'])) {
+			// Remove Padding
+			dump($_POST);
+			$pad = "L@bM4P_p@66";
+			$json = str_replace($pad, "", $_POST['data']);
+			// Decode JSON objects to PHP objects
+			$obj = json_decode($json, true);
+			dump($obj);
+			
+			
+			$systemExists = $this->system->get_by('sysName',$obj["system"]);
+			if($obj["function"]=="login" && $obj["LoggedIn"]==true){
+				if($systemExists == true){
+					$this->system->update($systemExists->sysId, array(
+						'ninerNetUser'=>$obj["username"],
+						'sysName'=>$obj["system"],
+						'status'=>1
+					));
+				}
+				else{
+					$this->system->insert(array(
+						'ninerNetUser'=>$obj["username"],
+						'sysName'=>$obj["system"],
+						'status'=>1
+					));
+				}
+			}
+			elseif($obj["LoggedIn"]==false || $obj["function"]=="logout"){
+				if($systemExists == true){
+					$this->system->update($systemExists->sysId, array(
+						'ninerNetUser'=>"",
+						'sysName'=>$obj["system"],
+						'status'=>0
+					));
+				}
+			}
+		}
+		
+	}
+	
+	public function test(){
+		echo "<form method='POST' action='".site_url('/listener')."'><textarea type='text' name='data' id='data'>L@bM4P_p@66{\"username\":\"MyUname\",\"system\":\"MySysname\",\"function\":\"login\",\"LoggedIn\":true}L@bM4P_p@66</textarea> <input type='submit' value='submit'></form>";
+	}
 
-                    }
-
-                }
-            }
-
-            /*if(isset($djson)){
-            $errors = array();
-            $required_fields = array('username', 'system', 'function', 'logged_in');
-            foreach($required_fields as $fieldname){
-                if (!isset($djson) || (empty($djson) && ($djson!=0))){
-                    $errors[] = $fieldname;
-                }
-            }
-        
-        $fields_with_length = array('username' => 30, 'system' => 30);
-        foreach($fields_with_length as $fieldname => $maxlength){
-            if(strlen(trim($djson))> $maxlength){
-                $errors[] = $fieldname;
-            }
-        }
-        
-        if(empty($errors)){
-        }
-
-}*/
 }
 
 /* End of file listener.php */
