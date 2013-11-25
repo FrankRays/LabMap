@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 18, 2013 at 04:57 AM
+-- Generation Time: Nov 25, 2013 at 10:22 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -33,9 +33,11 @@ CREATE TABLE IF NOT EXISTS `building` (
   `y1` int(11) NOT NULL,
   `x2` int(11) NOT NULL,
   `y2` int(11) NOT NULL,
+  `mapId_fk` int(10) unsigned NOT NULL,
   PRIMARY KEY (`buildingId`),
-  UNIQUE KEY `building` (`building`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `building` (`building`),
+  KEY `mapId_fk` (`mapId_fk`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -53,16 +55,6 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
   KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ci_sessions`
---
-
-INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('3833641717c11f323ba876cd0ff46326', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', 1384740193, ''),
-('a617ec59127c98dc4f29a69fbe8d6af5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1384486496, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"9";s:5:"utype";s:1:"1";s:9:"logged_in";b:1;s:8:"username";s:5:"admin";}'),
-('c1efbf502f449ecf47a4c71bebd40267', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', 1384750040, 'a:5:{s:9:"user_data";s:0:"";s:7:"user_id";s:1:"3";s:5:"utype";s:1:"1";s:9:"logged_in";b:1;s:8:"username";s:8:"sjonnala";}');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `devicecapability`
@@ -155,6 +147,12 @@ INSERT INTO `user` (`userId_pk`, `uname`, `utype`, `ltype`, `active`, `passwd`) 
 --
 
 --
+-- Constraints for table `building`
+--
+ALTER TABLE `building`
+  ADD CONSTRAINT `building_ibfk_1` FOREIGN KEY (`mapId_fk`) REFERENCES `map` (`mapId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `devicecapability`
 --
 ALTER TABLE `devicecapability`
@@ -164,8 +162,8 @@ ALTER TABLE `devicecapability`
 -- Constraints for table `labsinbuildings`
 --
 ALTER TABLE `labsinbuildings`
-  ADD CONSTRAINT `labsinbuildings_ibfk_2` FOREIGN KEY (`lab_mapId_fk`) REFERENCES `map` (`mapId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `labsinbuildings_ibfk_1` FOREIGN KEY (`buildingId_fk`) REFERENCES `building` (`buildingId`);
+  ADD CONSTRAINT `labsinbuildings_ibfk_1` FOREIGN KEY (`buildingId_fk`) REFERENCES `building` (`buildingId`),
+  ADD CONSTRAINT `labsinbuildings_ibfk_2` FOREIGN KEY (`lab_mapId_fk`) REFERENCES `map` (`mapId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `system`
