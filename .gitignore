@@ -5,7 +5,9 @@ application/cache/*
 !application/cache/.htaccess
 
 application/bgImages/*
+!application/bgImages/index.html
 application/bgImages/thumbs/*
+!application/bgImages/thumbs/index.html
 
 application/logs/*
 !application/logs/index.html
