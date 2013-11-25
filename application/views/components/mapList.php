@@ -107,7 +107,7 @@ if ($mode == UTYPE_ADMIN) {
 							<tr>
 								<td><?php echo $count; ?></td>
 								<td><a href="<?php echo site_url('/map/build/'.$map_list_item->mapId);?>"><?php echo $map_list_item->mName; ?></a></td>
-								<td><image src="<?php echo base_url('bgImages/thumbs').'/'.$map_list_item->bgImage;?>"></td>
+								<td><img src="<?php echo base_url('bgImages/thumbs').'/'.$map_list_item->bgImage;?>"></td>
 								<td><?php echo $map_list_item->mWidth ." x ".$map_list_item->mHeight;?></td>
 								<td>
 									<?php if($map_list_item->mType==MTYPE_CAMPUS){

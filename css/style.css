@@ -43,3 +43,38 @@ body{
 	border-bottom:1px solid;
 	border-bottom-color: inherit;
 }
+
+.mapBuilderContainer{
+	cursor:crosshair;
+	position:relative;
+	padding:0;
+	margin:0;
+	border:none;
+}
+.mapBuilder{
+}
+
+.buildingDemarcation{
+	position:absolute;
+	cursor:pointer;
+	border:2px dashed #ec1010;
+}
+.listOfLabs{
+	display:none;
+	position:relative;
+	left:100%;
+	top:0px;
+	background-color:#FFF;
+	font-size:12px;
+	width:200px;
+	min-height:10px;
+}
+.buildingDemarcation:hover > .listOfLabs{
+	display:block;
+}
+.mapLabListHeading{
+	height:20px;
+	padding:2px 3px;
+	margin-bottom:3px;
+	border:1px solid #d0d0d0;
+}

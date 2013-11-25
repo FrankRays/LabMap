@@ -10,7 +10,9 @@ class MY_Controller extends CI_Controller{
 	{
 		parent::__construct();
 		$this->output->nocache();
-		$this->output->enable_profiler(true);
+		if(!$this->input->is_ajax_request()){
+			$this->output->enable_profiler(true);
+		}
 		$this->load->library('Auth_AD');
 		
 		if(!$this->auth_ad->is_authenticated()){

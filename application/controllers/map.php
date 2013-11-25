@@ -10,6 +10,8 @@ class Map extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model("map_model", "map");
+		$this->load->model('building_model','building');
+		
 		$this->load->library('form_validation');
 		if($this->session->userdata('utype')==UTYPE_ADMIN){
 			$this->data['mode']=UTYPE_ADMIN;
@@ -116,9 +118,56 @@ class Map extends MY_Controller {
 	}
 
 	public function build() {
+		$this->data['mapId'] =  intval($this->uri->segment(3));
+		$buildings = $this->building->get_many_by('mapId_fk',$this->data['mapId']);
 		
+		$res = $this->map->get($this->data['mapId']);
+		if($res == null){
+			redirect('/map');
+		}
+		
+		$this->data['building_object']=$buildings;
+		
+		$this->data['map_object']=$res;
+		$this->load->view('components/header');
+		$this->load->view('components/navBar', $this->data);
+		if($res->mType == MTYPE_CAMPUS){
+			$this->load->view('components/buildCampusMap',$this->data);
+		}
+		else{
+			$this->load->view('components/buildLabMap',$this->data);
+		}
+		$this->load->view('components/footer');
 	}
 
+	public function createBuilding(){
+		$return["error"]="";
+		$return["status"]=false;
+		$return["id"]="";
+		$mapId = $this->input->post('mapId');
+		$bname=$this->input->post('bname');
+		$x1 = $this->input->post('x1');
+		$y1 = $this->input->post('y1');
+		$x2 = $this->input->post('x2');
+		$y2 = $this->input->post('y2');
+		$insertId=$this->building->insert(array(
+			'building'=>$bname,
+			'x1'=>$x1,
+			'y1'=>$y1,
+			'x2'=>$x2,
+			'y2'=>$y2,
+			'mapId_fk'=>$mapId
+		));
+		if($insertId !== FALSE){
+			$return["id"]=$insertId;
+			$return["status"]=true;
+		}
+		else{
+			$return["error"]="Try again or contact helpdesk.";
+		}
+		$return["id"]=$insertId;
+		$this->output->set_content_type('application/json')->set_output(json_encode($return));
+	}
 }
 
 /* End of file map.php */
